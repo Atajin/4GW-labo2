@@ -1,0 +1,49 @@
+<%- include ("../partials/header.ejs") %>
+
+    <form action="/event/add" method="POST">
+        <div class="container mt-3">
+            <div class="form-group row mb-3">
+                <label for="E_NAME" class="col-sm-2 col-form-label">Nom</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="E_NAME" name="E_NAME">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="E_START_DATE" class="col-sm-2 col-form-label">Date début</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="E_START_DATE" name="E_START_DATE">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="E_END_DATE" class="col-sm-2 col-form-label">Date de fin</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="E_START_END" name="E_START_END">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="E_DESC" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="E_DESC" name="E_DESC" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="E_LOCATION" class="col-sm-2 col-form-label">Emplacement</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="E_LOCATION" name="E_LOCATION">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="Sauvegarder">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <%- include ("../partials/footer.ejs") %>

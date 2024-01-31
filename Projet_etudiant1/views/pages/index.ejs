@@ -1,0 +1,26 @@
+<%- include ("../partials/header.ejs") %>
+
+    <a href="/event/add" class="btn btn-success">Ajouter évènement</a>
+
+    <div class="container mt-4">
+        <!-- Header or other content -->
+        <% items.forEach(function(item) { %>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <%= item.E_NAME %> <!-- Dynamically add the event name -->
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= item.E_LOCATION %>
+                    </h5> <!-- Event location -->
+                    <p class="card-text">
+                        <%= item.E_DESC %>
+                    </p> <!-- Event description -->
+                    <p class="card-text">Start: <%= item.E_START_DATE %> | End: <%= item.E_START_END %>
+                    </p> <!-- Event start and end dates -->
+                </div>
+            </div>
+            <% }); %>
+    </div>
+
+    <%- include ("../partials/footer.ejs") %>
