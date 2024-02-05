@@ -58,7 +58,7 @@ con.connect(function (err) {
     Description des routes
 */
 app.get("/", function (req, res) {
-    con.query("SELECT * FROM e_events ORDER BY e_start_date DESC", function (err, result) {
+    con.query("SELECT * FROM e_events ORDER BY E_ID", function (err, result) {
         if (err) throw err;
         res.render("pages/index", {
             siteTitle: "Application simple",
@@ -69,7 +69,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/event/add", function (req, res) {
-    con.query("SELECT * FROM e_events ORDER BY e_start_date DESC", function (err, result) {
+    con.query("SELECT * FROM e_events ORDER BY E_ID", function (err, result) {
         if (err) throw err;
         res.render("pages/add-event", {
             siteTitle: "Application simple",
@@ -89,6 +89,45 @@ app.post("/event/add", function (req, res) {
         req.body.E_LOCATION
     ];
     con.query(requete, parametres, function (err, result) {
+        if (err) throw err;
+        res.redirect("/");
+    });
+});
+
+app.get("/event/edit/:id", function (req, res) {
+    const requete = "SELECT * FROM e_events WHERE e_id = ?";
+    const parametres = [req.params.id];
+    con.query(requete, parametres, function (err, result) {
+        if (err) throw err;
+        result[0].E_START_DATE = dateFormat(result[0].E_START_DATE, "yyyy-mm-dd");
+        result[0].E_START_END = dateFormat(result[0].E_START_END, "yyyy-mm-dd");
+        res.render("pages/edit-event.ejs", {
+            siteTitle: "Application simple",
+            pageTitle: "Editer événement : " + result[0].E_NAME,
+            items: result,
+        });
+    });
+});
+
+app.post("/event/edit/:id", function (req, res) {
+    const requete = "UPDATE e_events SET E_NAME = ?, E_START_DATE = ?, E_START_END = ?, E_DESC = ?, E_LOCATION = ? WHERE E_ID = ?";
+    const parametres = [
+        req.body.E_NAME,
+        req.body.E_START_DATE,
+        req.body.E_START_END,
+        req.body.E_DESC,
+        req.body.E_LOCATION,
+        req.body.E_ID
+    ];
+    con.query(requete, parametres, function (err, result) {
+        if (err) throw err;
+        res.redirect("/");
+    });
+});
+
+app.get("/event/delete/:id", function (req, res) {
+    const requete = "DELETE FROM e_events WHERE E_ID = ?";
+    con.query(requete, [req.params.id], function (err, result) {
         if (err) throw err;
         res.redirect("/");
     });

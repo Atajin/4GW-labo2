@@ -1,26 +1,41 @@
 <%- include ("../partials/header.ejs") %>
 
-    <a href="/event/add" class="btn btn-success">Ajouter évènement</a>
+    <a href="/event/add" class="btn btn-success m-2">Ajouter évènement</a>
 
     <div class="container mt-4">
-        <!-- Header or other content -->
-        <% items.forEach(function(item) { %>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <%= item.E_NAME %> <!-- Dynamically add the event name -->
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <%= item.E_LOCATION %>
-                    </h5> <!-- Event location -->
-                    <p class="card-text">
-                        <%= item.E_DESC %>
-                    </p> <!-- Event description -->
-                    <p class="card-text">Start: <%= item.E_START_DATE %> | End: <%= item.E_START_END %>
-                    </p> <!-- Event start and end dates -->
-                </div>
-            </div>
-            <% }); %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Localisation</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <% items.forEach(function(item) { %>
+                <tbody>
+                    <tr>
+                        <td class="align-baseline">
+                            <%= item.E_ID %>
+                        </td>
+                        <td class="align-baseline">
+                            <%= item.E_NAME %>
+                        </td>
+                        <td class="align-baseline">
+                            <%= item.E_DESC %>
+                        </td>
+                        <td class="align-baseline">
+                            <%= item.E_LOCATION %>
+                        </td>
+                        <td class="align-baseline">
+                            <a href="/event/edit/<%= item.E_ID %>" class="btn btn-success">Modifier</a>
+                            <a href="/event/delete/<%= item.E_ID %>" class="btn btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <% }); %>
+        </table>
     </div>
 
     <%- include ("../partials/footer.ejs") %>
